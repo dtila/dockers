@@ -1,0 +1,44 @@
+name: Build Nextcloud docker image
+
+on:
+  push:
+    branches: [ "main" 
+    paths:
+    - nextcloud
+  pull_request:
+    branches: [ "main" ]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      working-dir: ./nextcloud
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Log in to the Container registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+   
+    - name: Build Docker image
+      working-directory: ./nextcloud
+      run: |
+        docker build --progress=plain --no-cache . -f Dockerfile -t ghcr.io/dtila/dockers/nexcloud-ha-crontab:latest
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Push Docker image
+      working-directory: ./src
+      run: docker push ghcr.io/dtila/dockers/nexcloud-ha-crontab:latest
+
+    
