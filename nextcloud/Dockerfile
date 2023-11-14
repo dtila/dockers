@@ -12,6 +12,7 @@ RUN set -ex; \
         procps \
         smbclient \
         supervisor \
+		vim \
     ; \
     rm -rf /var/lib/apt/lists/*
 
