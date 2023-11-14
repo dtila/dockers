@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
     paths:
     - nextcloud/**
-    - .github/workflows/nextcloud
+    - .github/workflows/nextcloud.yml
   pull_request:
     branches: [ "main" ]
 
