@@ -16,15 +16,14 @@ RUN set -ex; \
     ; \
     rm -rf /var/lib/apt/lists/* \
 # Install & configure Video preview Generator
-	echo '/usr/src/nextcloud/occ config:system:set enable_previews --value="true"' > /docker-entrypoint-hooks.d/post-installation/install-preview \
-	echo '/usr/src/nextcloud/occ config:system:set enabledPreviewProviders 0 --value="OC\\Preview\\Image"' > /docker-entrypoint-hooks.d/post-installation/install-preview \
-	echo '/usr/src/nextcloud/occ config:system:set enabledPreviewProviders 1 --value="OC\\Preview\\Movie"' > /docker-entrypoint-hooks.d/post-installation/install-preview \
-	echo '/usr/src/nextcloud/occ config:system:set enabledPreviewProviders 2 --value="OC\\Preview\\MP3"' > /docker-entrypoint-hooks.d/post-installation/install-preview \ 
-	echo '/usr/src/nextcloud/occ config:system:set enabledPreviewProviders 3 --value="OC\\Preview\\MKV"' > /docker-entrypoint-hooks.d/post-installation/install-preview \
-	echo '/usr/src/nextcloud/occ config:system:set enabledPreviewProviders 4 --value="OC\\Preview\\MP4"' > /docker-entrypoint-hooks.d/post-installation/install-preview \
-	echo '/usr/src/nextcloud/occ config:system:set enabledPreviewProviders 5 --value="OC\\Preview\\AVI"' > /docker-entrypoint-hooks.d/post-installation/install-preview \
-	echo '/usr/src/nextcloud/occ background:cron \
-
+    echo '/usr/src/nextcloud/occ config:system:set enable_previews --value="true"' > /docker-entrypoint-hooks.d/post-installation/install-preview; \
+    echo '/usr/src/nextcloud/occ config:system:set enabledPreviewProviders 0 --value="OC\\Preview\\Image"' >> /docker-entrypoint-hooks.d/post-installation/install-preview; \
+    echo '/usr/src/nextcloud/occ config:system:set enabledPreviewProviders 1 --value="OC\\Preview\\Movie"' >> /docker-entrypoint-hooks.d/post-installation/install-preview; \
+    echo '/usr/src/nextcloud/occ config:system:set enabledPreviewProviders 2 --value="OC\\Preview\\MP3"' >> /docker-entrypoint-hooks.d/post-installation/install-preview; \
+    echo '/usr/src/nextcloud/occ config:system:set enabledPreviewProviders 3 --value="OC\\Preview\\MKV"' >> /docker-entrypoint-hooks.d/post-installation/install-preview; \
+    echo '/usr/src/nextcloud/occ config:system:set enabledPreviewProviders 4 --value="OC\\Preview\\MP4"' >> /docker-entrypoint-hooks.d/post-installation/install-preview; \
+    echo '/usr/src/nextcloud/occ config:system:set enabledPreviewProviders 5 --value="OC\\Preview\\AVI"' >> /docker-entrypoint-hooks.d/post-installation/install-preview; \
+    echo '/usr/src/nextcloud/occ background:cron' >> /docker-entrypoint-hooks.d/post-installation/install-preview; \
 # Add Crontab for preview generation
 	echo '*/10 * * * * php /usr/src/nextcloud/occ preview:pre-generate -vvv' > /var/spool/cron/crontabs/preview-generator
 
