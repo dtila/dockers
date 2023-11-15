@@ -39,4 +39,4 @@ COPY supervisord.conf /
 ENV NEXTCLOUD_UPDATE=1
 ENV PHP_MEMORY_LIMIT=1024M
 
-CMD ["/usr/bin/supervisord", "-c", "/supervisord.conf"]
+ENTRYPOINT ["/usr/bin/supervisord", "-c", "/supervisord.conf"]
