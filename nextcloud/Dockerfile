@@ -5,7 +5,7 @@ RUN sed -i "s/Components: main/Components: main non-free/" /etc/apt/sources.list
 RUN set -ex; \
     \
     apt-get update; \
-    apt-get install -y --no-install-recommends \
+    apt-get install -y \
         ffmpeg intel-media-va-driver-non-free vainfo i965-va-driver \
         ghostscript \
         libmagickcore-6.q16-6-extra \

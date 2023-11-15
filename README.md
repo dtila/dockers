@@ -12,7 +12,7 @@ contains:
 **Install**
 
 ```
-docker pull ghcr.io/dtila/dockers/nexcloud-ha-crontab:latest
+docker pull ghcr.io/dtila/dockers/nexcloud-ffmpeg-cron:latest
 ```
 
 Proceed with configuring the Nextcloud (as per official documentation) and you will have the Nextcloud Apache & Video preview generation plugin installed
