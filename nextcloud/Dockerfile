@@ -26,8 +26,8 @@ RUN set -ex; \
     echo '/usr/src/nextcloud/occ config:system:set enabledPreviewProviders 5 --value="OC\\Preview\\AVI"' >> /docker-entrypoint-hooks.d/post-installation/setup-preview-generator; \
     echo '/usr/src/nextcloud/occ background:cron' >> /docker-entrypoint-hooks.d/post-installation/setup-preview-generator; \
 # Add Crontab for preview generation
-	echo "*/10 * * * * /usr/src/nextcloud/occ preview:pre-generate -vvv" >> /var/spool/cron/crontabs/www-data \
-        chown www-data /var/spool/cron/crontabs/www-data \
+	echo "*/10 * * * * /usr/src/nextcloud/occ preview:pre-generate -vvv" >> /var/spool/cron/crontabs/www-data; \
+        chown www-data /var/spool/cron/crontabs/www-data; \
 	echo "Setup complete!"
  
 RUN mkdir -p \
