@@ -1,13 +1,18 @@
 FROM postgres:16
 
+# Switch to root for installing dependencies
+USER root
+
 # Install dependencies for Patroni
 RUN apt-get update && apt-get install -y \
-    python3 python3-pip python3-setuptools curl && \
-    pip3 install --no-cache-dir patroni[etcd] && \
+    python3-psycopg2 patroni && \
     apt-get clean
+
+# Revert to the default postgres user
+USER postgres
 
 # Expose PostgreSQL and Patroni API ports
 EXPOSE 5432 8008
 
-# Set the default command for the container
+# Set the default command for Patroni
 CMD ["patroni", "/etc/patroni/patroni.yml"]
