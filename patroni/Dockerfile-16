@@ -5,7 +5,7 @@ USER root
 
 # Install dependencies for Patroni
 RUN apt-get update && apt-get install -y \
-    python3-psycopg2 patroni && \
+    python3-psycopg2 patroni procps && \
     apt-get clean
 
 # Revert to the default postgres user
