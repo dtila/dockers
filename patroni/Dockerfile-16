@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y \
     python3-psycopg2 patroni procps && \
     apt-get clean
 
+RUN chmod 700 /var/lib/postgresql/data
+
 # Revert to the default postgres user
 USER postgres
 
