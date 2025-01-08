@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 RUN mkdir /var/lib/postgresql/config 
-RUN chown postgres -R /var/lib/postgresql/
+RUN chown postgres:postgres -R /var/lib/postgresql/
 RUN chmod -R 700 /var/lib/postgresql/
 
 # Revert to the default postgres user
