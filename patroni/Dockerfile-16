@@ -10,8 +10,9 @@ RUN apt-get update && apt-get install -y \
 	python3-consul \
     && apt-get clean
 
-RUN chmod 700 /var/lib/postgresql/data
-RUN mkdir /var/lib/postgresql/config && chmod 700 /var/lib/postgresql/config
+RUN mkdir /var/lib/postgresql/config 
+RUN chown postgres -R /var/lib/postgresql/
+RUN chmod -R 700 /var/lib/postgresql/
 
 # Revert to the default postgres user
 USER postgres
