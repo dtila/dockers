@@ -3,7 +3,6 @@ FROM postgres:16
 # Switch to root for installing dependencies
 USER root
 
-# Install dependencies for Patroni and Consul integration
 RUN apt-get update && apt-get install -y \
     python3-psycopg2 procps \
     patroni \
@@ -12,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 RUN chmod 700 /var/lib/postgresql/data
+RUN mkdir /var/lib/postgresql/config && chmod 700 /var/lib/postgresql/config
 
 # Revert to the default postgres user
 USER postgres
