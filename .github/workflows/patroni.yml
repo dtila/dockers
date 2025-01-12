@@ -4,8 +4,8 @@ on:
   push:
     branches: [ "main" ]
     paths:
-    - patroni/**
-    - .github/workflows/patroni.yml
+      - patroni/**
+      - .github/workflows/patroni.yml
   pull_request:
     branches: [ "main" ]
   schedule:
@@ -19,8 +19,13 @@ jobs:
     permissions:
       contents: read
       packages: write
+    strategy:
+      matrix:
+        postgres_version: [16, 17]  # PostgreSQL versions to build
+
     steps:
-    - uses: actions/checkout@v2
+    - name: Check out the repository
+      uses: actions/checkout@v2
 
     - name: Log in to the Container registry
       uses: docker/login-action@v2
@@ -28,13 +33,14 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    
-    # docker build --progress=plain --no-cache . -f Dockerfile -t ghcr.io/dtila/dockers/nexcloud-ffmpeg-cron:latest
+
     - name: Build and push
       uses: docker/build-push-action@v2
       with:
         context: ./patroni
-        file: ./patroni/Dockerfile-16
+        file: ./patroni/Dockerfile
         push: true
-        tags: ghcr.io/dtila/dockers/postgres-patroni:16
-        
+        platforms: linux/amd64,linux/arm64  # Multi-platform builds
+        tags: ghcr.io/dtila/dockers/postgres-patroni:${{ matrix.postgres_version }}
+        build-args: |
+          POSTGRES_VERSION=${{ matrix.postgres_version }}
