@@ -40,7 +40,6 @@ jobs:
         context: ./patroni
         file: ./patroni/Dockerfile
         push: true
-        platforms: linux/amd64,linux/arm64  # Multi-platform builds
         tags: ghcr.io/dtila/dockers/postgres-patroni:${{ matrix.postgres_version }}
         build-args: |
           POSTGRES_VERSION=${{ matrix.postgres_version }}
