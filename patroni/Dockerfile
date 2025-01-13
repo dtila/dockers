@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     patroni \
     python3-etcd3 \
     python3-consul \
-    pgbackrest \
+    pgbackrest vim \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
