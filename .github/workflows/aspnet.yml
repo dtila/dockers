@@ -38,6 +38,6 @@ jobs:
         context: ./aspnet
         file: ./aspnet/Dockerfile
         push: true
-        tags: ghcr.io/dtila/dockers/aspnet:${{ matrix.aspnet_version }}
+        tags: ghcr.io/dtila/dockers/aspnet-chromium:${{ matrix.aspnet_version }}
         build-args: |
           ASPNET_VERSION=${{ matrix.aspnet_version }}
