@@ -1,15 +1,25 @@
-ARG ASPNETCORE_VERSION="8.0"
+ARG ASPNETCORE_VERSION
 
-FROM  mcr.microsoft.com/dotnet/aspnet:${ASPNETCORE_VERSION}
+FROM mcr.microsoft.com/dotnet/aspnet:${ASPNETCORE_VERSION}
 
-USER $APP_UID
 WORKDIR /app
 
-USER root
-RUN mkdir -p /var/lib/apt/lists/partial && \
-    chmod 755 /var/lib/apt/lists/partial
+RUN mkdir -p /var/lib/apt/lists/partial \
+ && chmod 755 /var/lib/apt/lists/partial \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends \
+      xorg \
+      openbox \
+      libnss3 \
+      libasound2 \
+      libglib2.0-0 \
+      curl \
+      wget \
+      chromium \
+ && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y xorg openbox libnss3 libasound2 libglib2.0-0 curl wget
+ENV CHROME_BIN=/usr/bin/chromium \
+    CHROME_PATH=/usr/lib/chromium/
 
-USER app
-
+ENTRYPOINT ["dotnet"]
+CMD ["--info"]

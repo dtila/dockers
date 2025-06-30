@@ -5,9 +5,9 @@ This image installs dependancies to allow running Puppeter in a headless environ
 Available for ASP.NET Core 8 and 9
 
 ```
-docker pull ghcr.io/dtila/dockers/aspnet-puppeter:8.0
+docker pull ghcr.io/dtila/dockers/aspnet-chromium:8.0
 ```
 
 ```
-docker pull ghcr.io/dtila/dockers/aspnet-puppeter:9.0
+docker pull ghcr.io/dtila/dockers/aspnet-chromium:9.0
 ```

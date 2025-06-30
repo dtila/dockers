@@ -1,43 +1,44 @@
-name: Build ASP.NET docker image
+name: Build ASP.NET Docker Image
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
     paths:
       - aspnet/**
       - .github/workflows/aspnet.yml
   pull_request:
-    branches: [ "main" ]
- 
+    branches: [main]
+    paths:
+      - aspnet/**
+      - .github/workflows/aspnet.yml
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./patroni
     permissions:
       contents: read
       packages: write
     strategy:
       matrix:
-        aspnet_version: ["8.0", "9.0"]
+        aspnetcore_version: ["8.0", "9.0"]
 
     steps:
-    - name: Check out the repository
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Log in to the Container registry
-      uses: docker/login-action@v2
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and push
-      uses: docker/build-push-action@v2
-      with:
-        context: ./aspnet
-        file: ./aspnet/Dockerfile
-        push: true
-        tags: ghcr.io/dtila/dockers/aspnet-chromium:${{ matrix.aspnet_version }}
-        build-args: |
-          ASPNET_VERSION=${{ matrix.aspnet_version }}
+      - name: Build & push images
+        uses: docker/build-push-action@v2
+        with:
+          context: ./aspnet
+          file: ./aspnet/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/dtila/dockers/aspnet-chromium:${{ matrix.aspnetcore_version }}
+          build-args: |
+            ASPNETCORE_VERSION=${{ matrix.aspnetcore_version }}
